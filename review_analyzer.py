@@ -316,6 +316,10 @@ class Analyzer:
         self.df = pd.concat([self.df, pd.DataFrame({'total_evaluation':temp_eva})], axis=1)
 
 
+        self.fugashi_wakati()
+        self.nlplot_graph()
+
+
         pos_num = self.total_evaluation.count('positive')
         neg_num = self.total_evaluation.count('negative')
         neu_num = self.total_evaluation.count('neutral')
@@ -329,6 +333,12 @@ class Analyzer:
         print('ネガティブ: {}   {:.1f}%'.format(self.df[self.df['label']==0].shape[0], self.df[self.df['label']==0].shape[0]*100 /len(self.df)))
         print('ニュートラル: {}   {:.1f}%'.format(self.df[self.df['label']==1].shape[0], self.df[self.df['label']==1].shape[0]*100 /len(self.df)))
         print('※短文とは、1レビューを\'。\'などで区切った文のことです')
+
+
+        self.calc_coef()
+
+
+        print()
         print('【ポジティブレビューの頻出単語】')
         print([sorted(self.frequency_pos.items(), key=lambda x:x[1], reverse=True)[i][0] for i in range(20)])
         print()
@@ -336,9 +346,6 @@ class Analyzer:
         print([sorted(self.frequency_neg.items(), key=lambda x:x[1], reverse=True)[i][0] for i in range(20)])
 
 
-        self.fugashi_wakati()
-        self.nlplot_graph()
-        self.calc_coef()
 
 
 
@@ -460,7 +467,7 @@ class Analyzer:
 
         Y_pred = clf.predict(X_test)
         precision, recall, f1, _ = precision_recall_fscore_support(y_test, Y_pred, average='binary')
-        
+
         print()
         print('【ロジスティック回帰】')
         print('accuracy_score:  {:.1f}%'.format(accuracy_score(y_test, Y_pred)))
@@ -476,8 +483,6 @@ class Analyzer:
         '''
         nlplotインスタンス化、グラフ作成
         '''
-        print()
-        print('nlplot_prams')
         positive = self.df[self.df['label']==2]
         neutral = self.df[self.df['label']==1]
         negative = self.df[self.df['label']==0]
