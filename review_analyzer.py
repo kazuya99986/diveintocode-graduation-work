@@ -315,8 +315,26 @@ class Analyzer:
 
         self.df = pd.concat([self.df, pd.DataFrame({'total_evaluation':temp_eva})], axis=1)
 
-        print('【総合評価】positive:{} negative:{} neutral:{}'.format(self.total_evaluation.count('positive'), self.total_evaluation.count('negative'), self.total_evaluation.count('neutral')))
-        print('【。区切りされた文章単位の評価】positive:{} negative:{} neutral:{}'.format(self.df[self.df['label']==2].shape[0], self.df[self.df['label']==0].shape[0], self.df[self.df['label']==1].shape[0]))
+
+        pos_num = self.total_evaluation.count('positive')
+        neg_num = self.total_evaluation.count('negative')
+        neu_num = self.total_evaluation.count('neutral')
+        print()
+        print('【総合評価】')
+        print('ポジティブ: {}   {:.1f}%'.format(pos_num, pos_num*100 /self.sentence_length))
+        print('ネガティブ: {}   {:.1f}%'.format(neg_num, neg_num*100 /self.sentence_length))
+        print('ニュートラル: {}   {:.1f}%'.format(neu_num, neu_num*100 /self.sentence_length))
+        print('【短文評価】')
+        print('ポジティブ: {}   {:.1f}%'.format(self.df[self.df['label']==2].shape[0], self.df[self.df['label']==2].shape[0]*100 / len(self.df)))
+        print('ネガティブ: {}   {:.1f}%'.format(self.df[self.df['label']==0].shape[0], self.df[self.df['label']==0].shape[0]*100 /len(self.df)))
+        print('ニュートラル: {}   {:.1f}%'.format(self.df[self.df['label']==1].shape[0], self.df[self.df['label']==1].shape[0]*100 /len(self.df)))
+        print('※短文とは、1レビューを\'。\'などで区切った文のことです')
+        print('【ポジティブレビューの頻出単語】')
+        print([sorted(self.frequency_pos.items(), key=lambda x:x[1], reverse=True)[i][0] for i in range(20)])
+        print()
+        print('【ネガティブレビューの頻出単語】')
+        print([sorted(self.frequency_neg.items(), key=lambda x:x[1], reverse=True)[i][0] for i in range(20)])
+
 
         self.fugashi_wakati()
         self.nlplot_graph()
@@ -442,13 +460,14 @@ class Analyzer:
 
         Y_pred = clf.predict(X_test)
         precision, recall, f1, _ = precision_recall_fscore_support(y_test, Y_pred, average='binary')
-
+        
+        print()
         print('【ロジスティック回帰】')
-        print(f'accuracy_score: {accuracy_score(y_test, Y_pred)}')
-        print(f'precision_score: {precision}')
-        print(f'recall_score: {recall}')
-        print(f'f1: {f1}')
-        print('coef_graph()メソッドで決定係数グラフ参照可')
+        print('accuracy_score:  {:.1f}%'.format(accuracy_score(y_test, Y_pred)))
+        print('precision_score:  {:.1f}%'.format(precision))
+        print('recall_score:  {:.1f}%'.format(recall))
+        print('f1:  {:.1f}%'.format(recall))
+        print('※coef_graph()メソッドで決定係数グラフ参照可')
 
 
 
@@ -457,7 +476,8 @@ class Analyzer:
         '''
         nlplotインスタンス化、グラフ作成
         '''
-        print('【nlplot_パラメータ】')
+        print()
+        print('nlplot_prams')
         positive = self.df[self.df['label']==2]
         neutral = self.df[self.df['label']==1]
         negative = self.df[self.df['label']==0]
