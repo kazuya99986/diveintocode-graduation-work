@@ -7,7 +7,6 @@ unidic-lite
 fugashi
 pyyaml==5.4.1
 sklearn
-re
 unicodedata
 nlplot
 collections
