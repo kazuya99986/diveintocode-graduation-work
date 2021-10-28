@@ -238,7 +238,7 @@ class Analyzer:
         return re.sub(r'\d+', '0', text)
 
 
-    def fit(self, text_input, batch_size=32):
+    def analyze(self, text_input, batch_size=32):
         '''
         メイン処理
         1. 前処理
