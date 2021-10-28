@@ -31,7 +31,7 @@
 `$ pip install -r requirements.txt`
 
 ## インポート
-当ライブラリをインポートしてください  
+当プログラムがあるディレクトリへ移動し、インポートしてください  
   
 `import review_analyzer`
 
