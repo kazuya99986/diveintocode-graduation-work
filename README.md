@@ -106,15 +106,19 @@ Analyzerクラスをインスタンス化してください。
         <argument>
         label: 'positive' or 'neutral' or 'negative'
         top_n: int(上位いくつの単語を対象とするか）
+        
      nlplot_unigram: 出現数が多く、また結びつきの強い2単語を表示します
         <argument>
         label: 'positive' or 'neutral' or 'negative'
         top_n: int(上位いくつの単語を対象とするか）
+        
      coef_graph: ネガティブ、ポジティブ、それぞれ出現頻度多い単語が結果にどう影響しているかを表すグラフを表示します
+     
      calc_coef: ロジステック回帰を用いた決定係数の算出を行います ※analyzeメソッドで同時に実行されます
         <argument>
         coef_vocabulary: list[str] 学習の対象とする単語 ※analyzeメソッド実行時に自動抽出されたリストを上書くようになります
         coef_num: int いくつの単語を対象とするか ※coef_vocabularyと同時に入力された場合、coef_vocabularyの単語数が優先されます
+        
      word_search: 指定した単語が含まれるレビューが検索できます
         <argument>
         word:list[str]
