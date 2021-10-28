@@ -43,7 +43,7 @@
 ## インスタンス化
 Analyzerクラスをインスタンス化してください。
 
-`インスタンス変数.review_analyzer.Analyzer()`  
+`オブジェクト変数.review_analyzer.Analyzer()`  
 
 ご自身の学習モデルを使用されたい方はそのモデルが保存されたディレクトリのパスを`model_PATH`へ指定してください。  
 またその他の引数は以下の通りです。 ※全て任意設定です
@@ -70,7 +70,7 @@ Analyzerクラスをインスタンス化してください。
 ## 推論
 `text_input`に推論データを設定の上、以下コードを実行してください。
 
-`インスタンス変数.analyze(text_input)`  
+`オブジェクト変数.analyze(text_input)`  
 
 【学習時間の目安】  
 GPU使用時: 数分/5000レビュー  
@@ -78,7 +78,7 @@ CPUのみ  : 1時間/5000レビュー
 
 ※メモリがクラッシュしてしまう場合は引数の`batch_size`へ少ない値（4や8など）を設定してください（デフォルト=32）
 
-## インスタンス変数一覧
+## クラス変数一覧
 
     df: 入力データや分析結果のまとめ（DataFrame）
       <カラム説明>
@@ -136,7 +136,7 @@ CPUのみ  : 1時間/5000レビュー
 
 2. インスタンス化  
 事前学習モデルを`model_name`に設定の上、以下コードを実行してください  
-`インスタンス変数.review_analyzer.Make_model(model_name)`  
+`オブジェクト変数.review_analyzer.Make_model(model_name)`  
 ※model_nameには`BertJapaneseTokenizer`に適用可能な日本語モデルを選択してください  
 [huggingface日本語モデル一覧]
 
@@ -150,8 +150,3 @@ CPUのみ  : 1時間/5000レビュー
 
 4. モデル生成  
 学習が無事終了した際には、カレントディレクトリに`original_model`というフォルダが作成されます。`Analyzer`クラスで推論する場合は、`original_model`のディレクトリを引数`model_PATH`に指定してください
-
-
-
-
-
