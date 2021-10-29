@@ -564,7 +564,7 @@ class Analyzer:
 
         pram.co_network(
             title=f'Co-occurrence network of {label}s',
-            sizing = 100, #default:100,
+            sizing = 100,
         )
 
 
@@ -622,7 +622,7 @@ class Analyzer:
             f'そのlabelは存在しません。labelは\'positive\', \'neutral\',\'negative\'のいずれかを選択してください'
             )
 
-        pram.bar_ngram(
+        return pram.bar_ngram(
             title=f'bi-gram of {label}s Top50',
             xaxis_label='word_count',
             yaxis_label='word',
