@@ -473,7 +473,7 @@ class Analyzer:
         print('accuracy_score:  {:.1f}%'.format(accuracy_score(y_test, Y_pred)*100))
         print('precision_score:  {:.1f}%'.format(precision*100))
         print('recall_score:  {:.1f}%'.format(recall*100))
-        print('f1:  {:.1f}%'.format(recall*100))
+        print('f1:  {:.1f}%'.format(f1*100))
         print('※coef_graph()メソッドで決定係数グラフ参照可')
 
 
@@ -599,7 +599,7 @@ class Analyzer:
             stopwords=self.stopwords,
         )
 
-        return pram
+        return
 
 
 
