@@ -21,7 +21,7 @@ class Make_model:
     Parameters
     ----------
     model_PATH: str
-                使用する事前学種モデル
+                使用する事前学習モデルが保存されたディレクトリ
     '''
     def __init__(self, model_name):
         self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
