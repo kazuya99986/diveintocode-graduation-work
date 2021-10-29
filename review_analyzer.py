@@ -470,10 +470,10 @@ class Analyzer:
 
         print()
         print('【ロジスティック回帰】')
-        print('accuracy_score:  {:.1f}%'.format(accuracy_score(y_test, Y_pred)))
-        print('precision_score:  {:.1f}%'.format(precision))
-        print('recall_score:  {:.1f}%'.format(recall))
-        print('f1:  {:.1f}%'.format(recall))
+        print('accuracy_score:  {:.1f}%'.format(accuracy_score(y_test, Y_pred)*100))
+        print('precision_score:  {:.1f}%'.format(precision)*100)
+        print('recall_score:  {:.1f}%'.format(recall)*100)
+        print('f1:  {:.1f}%'.format(recall)*100)
         print('※coef_graph()メソッドで決定係数グラフ参照可')
 
 
