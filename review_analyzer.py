@@ -590,7 +590,7 @@ class Analyzer:
             f'そのlabelは存在しません。labelは\'positive\', \'neutral\',\'negative\'のいずれかを選択してください'
             )
 
-        pram.bar_ngram(
+        return pram.bar_ngram(
             title=f'uni-gram of {label}s Top50',
             xaxis_label='word_count',
             yaxis_label='word',
@@ -598,8 +598,6 @@ class Analyzer:
             top_n=top_n,
             stopwords=self.stopwords,
         )
-
-        return
 
 
 
