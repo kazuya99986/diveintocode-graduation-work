@@ -10,7 +10,8 @@ import plotly.graph_objects as go
 from fugashi import Tagger
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, precision_recall_fscore_support
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import precision_recall_fscore_support
 from transformers import BertJapaneseTokenizer, BertForSequenceClassification, AdamW, Trainer, TrainingArguments
 
 
@@ -353,7 +354,7 @@ class Analyzer:
         '''
         fugashiを用いたわかち書き
         以下2通りでわかち書き
-        1. '助詞' '助動詞' '接続詞' '副詞' '動詞' '記号'を除いたもの・・・self.dfへ追加
+        1. '助詞','助動詞','動詞','記号','接頭辞','接続詞','代名詞','連体詞'を除いたもの・・・self.dfへ追加
         2. '名詞-普通名詞'を含むもの・・・出現回数と対にして、dictへ保存
         '''
         if not self.wakati_ng_type:
@@ -459,6 +460,9 @@ class Analyzer:
         y = np.where(self.df_pos_neg['total_evaluation'] == 'positive', 1, 0)
         X = self.df_pos_neg.drop('total_evaluation', axis=1).values
 
+        scaler = StandardScaler()
+        scaler.fit_transform(X)
+
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0, shuffle=True)
 
         clf = LogisticRegression(random_state=0)
@@ -470,7 +474,7 @@ class Analyzer:
 
         print()
         print('【ロジスティック回帰】')
-        print('accuracy_score:  {:.1f}%'.format(accuracy_score(y_test, Y_pred)*100))
+        print('accuracy_score:  {:.1f}%'.format(clf.score(X_test, y_test)*100))
         print('precision_score:  {:.1f}%'.format(precision*100))
         print('recall_score:  {:.1f}%'.format(recall*100))
         print('f1:  {:.1f}%'.format(f1*100))
