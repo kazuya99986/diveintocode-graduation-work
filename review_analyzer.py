@@ -10,7 +10,6 @@ import plotly.graph_objects as go
 from fugashi import Tagger
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import precision_recall_fscore_support
 from transformers import BertJapaneseTokenizer, BertForSequenceClassification, AdamW, Trainer, TrainingArguments
 
@@ -460,9 +459,6 @@ class Analyzer:
         y = np.where(self.df_pos_neg['total_evaluation'] == 'positive', 1, 0)
         X = self.df_pos_neg.drop('total_evaluation', axis=1).values
 
-        scaler = StandardScaler()
-        scaler.fit_transform(X)
-
         X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=0, shuffle=True)
 
         clf = LogisticRegression(random_state=0)
@@ -515,9 +511,9 @@ class Analyzer:
                     ラベルを条件に抽出されたデータフレーム
         '''
         if len(label) < 100:
-            return 1
-        elif len(label) < 500:
             return 2
+        elif len(label) < 500:
+            return 5
         else:
             return int(10 + len(label) * 0.003)
 
